@@ -1,0 +1,31 @@
+
+// '==' check the memory location of both string not the content of the string
+//  use  's1.equals(s2)' to compare the content of the strings
+//Arrays.equals(arr1,arr2);
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p)  {
+        int n1=p.length();
+        int n2=s.length();
+        List<Integer> list=new ArrayList<>();
+
+        if(n1>n2) return list;
+
+        int a1[]=new int[26];
+        int a2[]=new int[26];
+        for(int i=0;i<p.length();i++){
+            a1[p.charAt(i)-'a']++;
+        }
+
+        for(int i=0;i<n2;i++){
+          a2[s.charAt(i)-'a']++;
+          if(i>=n1){
+           a2[s.charAt(i-n1)-'a']--; 
+          }
+          if(Arrays.equals(a2,a1)){
+            list.add(i-n1+1);
+          }
+        }
+        return list;
+    }
+}
