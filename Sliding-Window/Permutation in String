@@ -1,0 +1,19 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int ls1=s1.length();
+        int arrS1[]=new int[26];
+        int arrS2[]=new int[26];
+        for(char ch:s1.toCharArray() ){
+            arrS1[ch-'a']++;
+        }
+
+       for(int i=0;i<s2.length();i++){
+         arrS2[s2.charAt(i)-'a']++;
+         if(i>=ls1){
+            arrS2[s2.charAt(i-ls1)-'a']--;
+         }
+          if(Arrays.equals(arrS2,arrS1)) return true;
+       }
+       return false;
+    }
+}
