@@ -1,0 +1,16 @@
+class StockSpanner {
+    Deque<int[]> stack;
+    public StockSpanner() {
+      stack=new ArrayDeque<>();  
+    }
+    
+    public int next(int price) {
+        int count=1;
+        while(!stack.isEmpty() && stack.peek()[0]<=price){
+           int temp[]=stack.pop();
+           count+=temp[1];
+        }
+        stack.push(new int[]{price,count});
+        return count;
+    }
+}
