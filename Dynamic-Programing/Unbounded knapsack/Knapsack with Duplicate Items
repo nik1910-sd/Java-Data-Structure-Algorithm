@@ -1,0 +1,53 @@
+//TOPDOWN APPROACH
+
+class Solution {
+    int dp[][];
+    public int knapSack(int val[], int wt[], int capacity) {
+        int n=wt.length;
+        dp=new int[n+1][capacity+1];
+        for(int i=0;i<=n;i++) Arrays.fill(dp[i],-1);
+        
+        return knapsack(n,val,wt,capacity);
+        
+    }
+    
+    int knapsack(int n,int[] val,int[] wt,int cap){
+        if(n==0 || cap==0) return 0;
+        
+        if(dp[n][cap]!=-1) return dp[n][cap];
+        
+        int skip=knapsack(n-1,val,wt,cap);
+        int take=0;
+        if(wt[n-1]<=cap){
+            take=val[n-1]+knapsack(n,val,wt,cap-wt[n-1]);
+        }
+        
+        return dp[n][cap]=Math.max(skip,take);
+    }
+}
+
+// BOTTOM UP APPROACH
+
+
+class Solution {
+    public int knapSack(int val[], int wt[], int capacity) {
+        int n = wt.length;
+        int[][] dp = new int[n + 1][capacity + 1];
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= capacity; j++) {
+                int exclude = dp[i - 1][j];
+      
+                int include = 0;
+                if (wt[i - 1] <= j) {
+                   
+                    include = val[i - 1] + dp[i][j - wt[i - 1]];
+                }
+                
+                dp[i][j] = Math.max(exclude, include);
+            }
+        }
+
+        return dp[n][capacity];
+    }
+}
